@@ -32,6 +32,7 @@ print("You think you can beat me, stupid human?")
 print("The word is {} letters long\n".format(len(guess_word)))
 while empty_spaces != 0:
     print(" ".join(empty_spaces_list))
+    print("You have {} guesses left.".format(round_counter))
     user_character_guess = input("What letter is your guess?  \n").lower()
     if user_character_guess in previous_guesses:
         print("You already guessed that one!\n")
@@ -46,8 +47,14 @@ while empty_spaces != 0:
         print("The word I was using was {}".format(guess_word))
         print("YOU LOSE HUMAN!")
         break
+    elif round_counter == 0:
+        print("My word was {}!".format(guess_word))
+        print("I'VE BEATEN YOU HUMAN!!")
+        print("MUAHAHAHAHA! I WILL TAKE OVER THE WORLD!")
+        break
     else:
         previous_guesses.append(user_character_guess)
+        round_counter = round_counter - 1
         print("That letter isn't in my word! \n")
 
 if empty_spaces == 0:
