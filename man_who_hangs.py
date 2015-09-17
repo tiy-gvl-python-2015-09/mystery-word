@@ -10,7 +10,7 @@ def find_occurances(a_string, char):
 
 
 def make_computer_guess_word(infile):
-    available_words_list = word_list.split()
+    available_words_list= available_words.split()
     upper_index_limit = len(available_words_list)
     random_num = randint(0, upper_index_limit)
     guess_word = available_words_list[random_num]
@@ -18,13 +18,18 @@ def make_computer_guess_word(infile):
     return guess_word
 
 
+def get_spaces_list(word):
+    num_spaces = len(word)
+    string_of_spaces = "_ " * num_spaces
+    spaces_list = string_of_spaces.split()
+    return spaces_list
+
+
 guess_word = make_computer_guess_word(available_words)
 
-empty_spaces = len(guess_word)
+empty_spaces_list = get_spaces_list(guess_word)
 
-empty_spaces_string = empty_spaces * "_ "
-
-empty_spaces_list = empty_spaces_string.split()
+empty_spaces = len(empty_spaces_list)
 
 previous_guesses = []
 
