@@ -9,15 +9,16 @@ def find_occurances(a_string, char):
     return [i for i, letter in enumerate(a_string)if letter == char]
 
 
-word_list = available_words.split()
+def make_computer_guess_word(infile):
+    available_words_list = word_list.split()
+    upper_index_limit = len(available_words_list)
+    random_num = randint(0, upper_index_limit)
+    guess_word = available_words_list[random_num]
+    guess_word = guess_word.lower()
+    return guess_word
 
-how_many_words = len(word_list)
 
-guess_number = randint(0, how_many_words)
-
-guess_word = word_list[guess_number]
-
-guess_word = guess_word.lower()
+guess_word = make_computer_guess_word(available_words)
 
 empty_spaces = len(guess_word)
 
@@ -48,6 +49,7 @@ while empty_spaces != 0:
         print("YOU LOSE HUMAN!")
         break
     elif round_counter == 0:
+        print("GAME OVER!")
         print("My word was {}!".format(guess_word))
         print("I'VE BEATEN YOU HUMAN!!")
         print("MUAHAHAHAHA! I WILL TAKE OVER THE WORLD!")
