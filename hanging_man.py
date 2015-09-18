@@ -1,14 +1,6 @@
 #with open("/usr/share/dict/words") as infile:
 #    available_words  = infile.read().split()
 
-game_word = "sammy".upper()
-
-word_length = len(game_word)
-
-word_as_list = list(game_word)
-
-#guessed_word_as_a_list = ["_", "_", "_", "_", "_"]
-
 def create_guessed_word(random_word): #creates guessed word same length as random word
     guessed_word_as_list = []
     count = 0
@@ -17,12 +9,40 @@ def create_guessed_word(random_word): #creates guessed word same length as rando
         count += 1
     return guessed_word_as_list
 
-def check_letter(passed_letter): #checks a letter with game word and returns game word with correct guesses revealed
-    letter = passed_letter.upper()
-    if letter in word_as_list:
-        for i, l in enumerate(word_as_list):
-            if l == letter:
-                guessed_word_as_list[i] = l
-        return guessed_word_as_list
-    else:
-        return guessed_word_as_list
+def player_turn(word_as_list, guessed_word_show):
+        count = 0
+        guessed_letters = []
+        while count < 8:
+            player_letter = input("Please guess a letter: ").upper()
+            if player_letter in guessed_letters:
+                print("You've already guessed that letter.")
+                #allow turn to start over again
+            else:
+                guessed_letters.append(player_letter)
+                if player_letter in word_as_list:
+                    print("Congrats! You guessed a correct letter!")
+                    for i, l in enumerate(word_as_list):
+                        if l == player_letter:
+                            guessed_word_show[i] = l
+                    print(guessed_word_show)
+                    print("You still have {} guesses left.".format(8 - count))
+                else:
+                    print("Sorry! That's a wrong guess.")
+                    count += 1
+                    print("You have {} guess(es) left.".format(8 - count))
+                     #allow turn to start over again
+
+
+
+def hanging_man():
+    #generate random word using random.choice, see above, call it game_word
+    #generate guessed word to hide word from user, called guessed_word_show
+    game_word = "sammy"
+    list_of_gw = list(game_word.upper())
+    show_word = create_guessed_word(game_word)
+
+
+    print("Welcome to the Hanging Man game!")
+    print("Your word to guess is {} characters long.".format(len(game_word)))
+    print("You will have 8 guesses to get the word.")
+    player_turn(list_of_gw, show_word)
