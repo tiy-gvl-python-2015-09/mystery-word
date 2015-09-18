@@ -17,7 +17,7 @@ def player_turn(word_as_list, guessed_word_show): #loops through the player turn
         count = 0
         guessed_letters = []
         while count < 8 and word_as_list != guessed_word_show:
-            player_letter = input("Please guess a letter: ").upper()
+            player_letter = input("Please guess a letter: ").upper() #after this, turn into a function, that returns count at end
             if len(player_letter) > 1:
                 print("That's more than one letter. No cheating!")
             elif player_letter in guessed_letters:
@@ -43,6 +43,18 @@ def player_turn(word_as_list, guessed_word_show): #loops through the player turn
             print("Your word was {}.".format("".join(word_as_list)))
 
 
+def ask_to_play_again():
+    play_again = input("Would you like to play again? y/n ").lower()
+    if play_again == "y":
+        print("\n")
+        hanging_man()
+    elif play_again == "n":
+        print("Goodbye!")
+    else:
+        print("That's not a 'y' or 'n'.")
+        ask_to_play_again()
+
+
 def hanging_man():
     #generate random word using random.choice, see above, call it game_word
 
@@ -53,7 +65,10 @@ def hanging_man():
     print("Welcome to the Hanging Man game!")
     print("Your word to guess is {} letters long.".format(len(game_word)))
     print("You will have 8 guesses to get the word.")
+
     player_turn(list_of_gw, show_word)
+
+    ask_to_play_again()
 
 
 hanging_man()
