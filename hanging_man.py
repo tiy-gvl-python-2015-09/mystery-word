@@ -1,9 +1,8 @@
-#import random
+import random
 
-#with open("/usr/share/dict/words") as infile:
-#    available_words  = infile.read().split()
+with open("/usr/share/dict/words") as infile:
+   available_words = infile.read().split()
 
-#game_word = random.choice(available_words)
 
 def create_guessed_word(random_word): #creates guessed word same length as random word
     guessed_word_as_list = []
@@ -14,7 +13,7 @@ def create_guessed_word(random_word): #creates guessed word same length as rando
     return guessed_word_as_list
 
 
-def player_turn(word_as_list, guessed_word_show):
+def player_turn(word_as_list, guessed_word_show): #loops through the player turn with appropriate response
         count = 0
         guessed_letters = []
         while count < 8 and word_as_list != guessed_word_show:
@@ -45,13 +44,14 @@ def player_turn(word_as_list, guessed_word_show):
 def hanging_man():
     #generate random word using random.choice, see above, call it game_word
 
-    game_word = "sammy"
+    game_word = random.choice(available_words)
     list_of_gw = list(game_word.upper())
     show_word = create_guessed_word(game_word)
 
     print("Welcome to the Hanging Man game!")
-    print("Your word to guess is {} characters long.".format(len(game_word)))
+    print("Your word to guess is {} letters long.".format(len(game_word)))
     print("You will have 8 guesses to get the word.")
     player_turn(list_of_gw, show_word)
+
 
 hanging_man()
