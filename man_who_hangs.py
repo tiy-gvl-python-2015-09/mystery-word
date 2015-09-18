@@ -25,45 +25,48 @@ def get_spaces_list(word):
     return spaces_list
 
 
+def man_who_hangs_game(spaces, guess_word):
+    print("You think you can beat me, stupid human?")
+    print("The word is {} letters long\n".format(len(guess_word)))
+    empty_spaces = len(spaces)
+    previous_guesses = []
+    round_counter = 9
+    while empty_spaces != 0:
+        print(" ".join(spaces))
+        print("You have {} guesses left.".format(round_counter))
+        user_character_guess = input("What letter is your guess?  \n").lower()
+        if user_character_guess in previous_guesses:
+            print("You already guessed that one!\n")
+        elif user_character_guess in guess_word:
+            previous_guesses.append(user_character_guess)
+            occurance_index = find_occurances(guess_word, user_character_guess)
+            empty_spaces = empty_spaces - len(occurance_index)
+            for occurance in occurance_index:
+                spaces[occurance] = user_character_guess
+                new_empty_spaces_string = " ".join(spaces)
+        elif user_character_guess == 'give up':
+            print("The word I was using was {}".format(guess_word))
+            print("YOU LOSE HUMAN!")
+            break
+        elif round_counter == 1:
+            print("GAME OVER!")
+            print("My word was {}!".format(guess_word))
+            print("I'VE BEATEN YOU HUMAN!!")
+            print("MUAHAHAHAHA! I WILL TAKE OVER THE WORLD!")
+            break
+        else:
+            previous_guesses.append(user_character_guess)
+            round_counter = round_counter - 1
+            print("That letter isn't in my word! \n")
+    if empty_spaces == 0:
+        print(" ".join(spaces))
+        print("YOU BEAT ME HUMAN!!")
+
 guess_word = make_computer_guess_word(available_words)
 
 empty_spaces_list = get_spaces_list(guess_word)
 
-empty_spaces = len(empty_spaces_list)
 
-previous_guesses = []
 
-round_counter = 7
-print("You think you can beat me, stupid human?")
-print("The word is {} letters long\n".format(len(guess_word)))
-while empty_spaces != 0:
-    print(" ".join(empty_spaces_list))
-    print("You have {} guesses left.".format(round_counter))
-    user_character_guess = input("What letter is your guess?  \n").lower()
-    if user_character_guess in previous_guesses:
-        print("You already guessed that one!\n")
-    elif user_character_guess in guess_word:
-        previous_guesses.append(user_character_guess)
-        occurance_index = find_occurances(guess_word, user_character_guess)
-        empty_spaces = empty_spaces - len(occurance_index)
-        for occurance in occurance_index:
-            empty_spaces_list[occurance] = user_character_guess
-            new_empty_spaces_string = " ".join(empty_spaces_list)
-    elif user_character_guess == 'give up':
-        print("The word I was using was {}".format(guess_word))
-        print("YOU LOSE HUMAN!")
-        break
-    elif round_counter == 0:
-        print("GAME OVER!")
-        print("My word was {}!".format(guess_word))
-        print("I'VE BEATEN YOU HUMAN!!")
-        print("MUAHAHAHAHA! I WILL TAKE OVER THE WORLD!")
-        break
-    else:
-        previous_guesses.append(user_character_guess)
-        round_counter = round_counter - 1
-        print("That letter isn't in my word! \n")
 
-if empty_spaces == 0:
-    print(" ".join(empty_spaces_list))
-    print("YOU BEAT ME HUMAN!!")
+man_who_hangs_game(empty_spaces_list, guess_word)
