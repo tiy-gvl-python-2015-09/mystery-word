@@ -1,5 +1,9 @@
+#import random
+
 #with open("/usr/share/dict/words") as infile:
 #    available_words  = infile.read().split()
+
+#game_word = random.choice(available_words)
 
 def create_guessed_word(random_word): #creates guessed word same length as random word
     guessed_word_as_list = []
@@ -49,3 +53,5 @@ def hanging_man():
     print("Your word to guess is {} characters long.".format(len(game_word)))
     print("You will have 8 guesses to get the word.")
     player_turn(list_of_gw, show_word)
+
+hanging_man()
