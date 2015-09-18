@@ -18,7 +18,9 @@ def player_turn(word_as_list, guessed_word_show): #loops through the player turn
         guessed_letters = []
         while count < 8 and word_as_list != guessed_word_show:
             player_letter = input("Please guess a letter: ").upper()
-            if player_letter in guessed_letters:
+            if len(player_letter) > 1:
+                print("That's more than one letter. No cheating!")
+            elif player_letter in guessed_letters:
                 print("You've already guessed that letter.")
             else:
                 guessed_letters.append(player_letter)
