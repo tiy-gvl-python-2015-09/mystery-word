@@ -20,10 +20,13 @@ def not_hang_man():
     words_guessed = []
     print ('your word is {} letters long'.format(len(word)))
     num_of_guesses = 0
+    total_guesses = 8
     occurance = []
     blank = list('_' * len(word))
 
-    while num_of_guesses < 8:
+    while num_of_guesses < total_guesses:
+        remaining = total_guesses-num_of_guesses
+        print('you can guess {} more times'.format(remaining))
         guess = (input('\nguess a letter ').lower())
         if guess not in words_guessed:
             words_guessed.append(guess)
@@ -34,7 +37,6 @@ def not_hang_man():
                 print("".join(blank))
                 if ''.join(blank) == word:
                     return "Good Jorb Homestar!!"
-
             else:
                 print("".join(blank))
                 num_of_guesses+=1
@@ -44,4 +46,4 @@ def not_hang_man():
             print("".join(blank))
     return 'FAILURE! the word was {}'.format(word)
 
-print(not_hang_man)
+print(not_hang_man())
