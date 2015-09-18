@@ -14,10 +14,9 @@ def play_again():
     if response == 'y':
         print("\nLet's go again")
         not_hang_man()
-        response = ''
     elif response == 'n':
-        return "Bye."
-        response = ''
+        print("Bye.")
+        return''
     else:
         print ("I missed that, what did you say? Y/N")
         play_again()
@@ -27,8 +26,30 @@ def random_word(word_list):
     return word_list[random_digit]
 
 
+def difficulty_level(difficulty):
+    word_list = list_of_words
+    easy = []
+    medium = []
+    hard = []
+    for word in word_list:
+        if len(word) < 7 and len(word) > 3:
+            easy.append(word)
+        if len(word) <11 and len(word) > 5:
+            medium.append(word)
+        if len(word) > 10:
+            hard.append(word)
+    if difficulty == 'easy':
+        return easy
+    if difficulty == 'medium':
+        return medium
+    if difficulty == 'hard':
+        return hard
+
+difficulty_level(list_of_words)
+
+
 def not_hang_man():
-    word = random_word(list_of_words).lower()
+    word = random_word(difficulty_level(input("easy, medium or hard game? ".lower())))
     letter_list = list(word)
     words_guessed = []
     print ('your word is {} letters long'.format(len(word)))
@@ -64,8 +85,8 @@ def not_hang_man():
         else:
             print("You already guessed that.")
             print("".join(blank))
-    if num_of_guesses >= remaining:
+    if num_of_guesses >= 8:
         print('FAILURE! the word was {}'.format(word))
     play_again()
-
+    return ''
 print(not_hang_man())
