@@ -36,7 +36,13 @@ def not_hang_man():
                     blank[position] = letter_list[position]
                 print("".join(blank))
                 if ''.join(blank) == word:
-                    return "Good Jorb Homestar!!"
+                    print('Good Jorb Homegrown!')
+                    response = input("Do you want to run this program again? Y/N ").lower()
+                    if response == 'y':
+                        print("\nLet's go again")
+                        not_hang_man()
+                    if response == 'n':
+                        return "Bye."
             else:
                 print("".join(blank))
                 num_of_guesses+=1
@@ -44,6 +50,12 @@ def not_hang_man():
         else:
             print("You already guessed that.")
             print("".join(blank))
-    return 'FAILURE! the word was {}'.format(word)
+    print('FAILURE! the word was {}'.format(word))
+    response = input("Do you want to run this program again? Y/N ").lower()
+    if response == 'y':
+        print("\nLet's go again")
+        not_hang_man()
+    if response == 'n':
+        return "Bye."
 
-print(not_hang_man())
+print (not_hang_man())
