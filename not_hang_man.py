@@ -1,8 +1,14 @@
-with open('words.txt') as infile:
+with open('/usr/share/dict/words') as infile:
     list_of_words = infile.read().split()
+
 
 from string import ascii_lowercase
 from random import randint
+
+
+letter_value = {'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1,
+                'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 9, 'r': 1,
+                's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10}
 
 
 def find_occurences(word, char):
@@ -12,44 +18,72 @@ def find_occurences(word, char):
 def play_again():
     response = input("Do you want to run this program again? Y/N ").lower()
     if response == 'y':
-        print("\nLet's go again")
+        print("\n Another word coming your way!")
         not_hang_man()
     elif response == 'n':
         print("Bye.")
         return''
     else:
-        print ("I missed that, what did you say? Y/N")
+        print ("{} is not an option!".format(response))
         play_again()
+
 
 def random_word(word_list):
     random_digit = randint(0,len(word_list))
     return word_list[random_digit]
 
 
-def difficulty_level(difficulty):
-    word_list = list_of_words
+def word_value(word):
+    value = 0
+    for letter in letter_value:
+        if letter in word:
+            value += letter_value[letter]
+    return value
+
+
+def value_dictionary(word_list):
+    word_value_dict = {}
+    for word in word_list:
+        value = word_value(word)
+        word_value_dict[word] = value
+    return word_value_dict
+dictionary_of_value = value_dictionary(list_of_words)
+
+
+def highest_value(dictionary):
+    largest_value = 0
+    for word in dictionary:
+        if dictionary_of_value[word] > largest_value:
+            largest_value = dictionary_of_value[word]
+    return largest_value
+
+
+def difficulty_level():
+    difficulty = input("easy, medium or hard game? ".lower())
+    word_list = value_dictionary(list_of_words)
+    numerator = highest_value(word_list)
     easy = []
     medium = []
     hard = []
     for word in word_list:
-        if len(word) < 7 and len(word) > 3:
+        if word_list[word] < (numerator * (1/3)):
             easy.append(word)
-        if len(word) <11 and len(word) > 5:
+        if word_list[word] < (numerator * (2/3)) and word_list[word] >= (numerator * (1/3)):
             medium.append(word)
-        if len(word) > 10:
+        if word_list[word] <= numerator and word_list[word] >= (numerator * (2/3)):
             hard.append(word)
     if difficulty == 'easy':
         return easy
-    if difficulty == 'medium':
+    elif difficulty == 'medium':
         return medium
-    if difficulty == 'hard':
+    elif difficulty == 'hard':
         return hard
-
-difficulty_level(list_of_words)
-
+    else:
+        print ("{} is not an option!".format(difficulty))
+        difficulty_level()
 
 def not_hang_man():
-    word = random_word(difficulty_level(input("easy, medium or hard game? ".lower())))
+    word = (random_word(difficulty_level()).lower())
     letter_list = list(word)
     words_guessed = []
     print ('your word is {} letters long'.format(len(word)))
@@ -89,4 +123,5 @@ def not_hang_man():
         print('FAILURE! the word was {}'.format(word))
     play_again()
     return ''
+
 print(not_hang_man())
