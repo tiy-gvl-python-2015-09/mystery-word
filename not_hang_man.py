@@ -80,7 +80,7 @@ def difficulty_level():
         return hard
     else:
         print ("{} is not an option!".format(difficulty))
-        difficulty_level()
+        return difficulty_level()
 
 def not_hang_man():
     word = (random_word(difficulty_level()).lower())
