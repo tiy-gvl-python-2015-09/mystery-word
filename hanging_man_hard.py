@@ -10,7 +10,7 @@ def word_generator(full_list):
     player_difficulty = input("Enter 'e' for Easy, 'm' for Medium, or 'h' for Hard: ").lower()
     if player_difficulty not in "emh":
         print("\nThat's not a valid difficulty level.\n")
-        hanging_man()
+        return word_generator(full_list)
     else:
         if player_difficulty == "e":
             for item in full_list:
@@ -43,7 +43,9 @@ def player_turn(word_as_list, guessed_word_show): #loops through the player turn
         guessed_letters = []
         while count < 8 and word_as_list != guessed_word_show:
             player_letter = input("Please guess a letter: ").upper() #could make this and below a function?
-            if len(player_letter) > 1:
+            if player_letter.isalpha() == False:
+                print("That's not a letter.")
+            elif len(player_letter) > 1:
                 print("That's more than one letter. No cheating!")
             elif player_letter in guessed_letters:
                 print("You've already guessed that letter.")
