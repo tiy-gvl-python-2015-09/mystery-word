@@ -1,3 +1,4 @@
+
 from random import choice
 import string
 
@@ -9,38 +10,88 @@ def generate_random_word(data):
     random_word = choice(data)
     return random_word
 
-game_word = generate_random_word(text)
-print(game_word)
-
 def tell_word_length(word):
     return "Welcome! The word has {} letters. You have eight guesses.".format(len(word))
 
-print(tell_word_length(game_word))
+word = generate_random_word(text)
 
-guess_count = 0
+
+
+print(tell_word_length(word))
+
+userguess = str(input("Pick a letter, any letter: ").lower())
+
 correct_guess = 0
+guesses_left = 8
 
-for guess_count in range(0,100):
-    user_guess = str(input("Pick a letter, any letter: ").lower())
-    if user_guess.isalpha() == False:
-        print("Please choose a letter.")
+# Choose whether to show word
+#print(word)
+
+word = list(word)
+blank_word = []
+counter = 0
+guesses = 0
+guess_list = []
+
+def find_all(a_str, sub):
+    start = 0
+    while True:
+        start = a_str.find(sub, start)
+        if start == -1: return
+        yield start
+        start += len(sub)
+
+
+while counter < len(word):
+    for x in word:
+        if x != userguess:
+            blank_word.append("_")
+            counter += 1
+        if x == userguess:
+            blank_word.append(userguess)
+            counter += 1
+    if userguess not in word:
+        guesses += 1
+        guesses_left = 8 - guesses
+        print("Sorry, {} is not in the word. You have {} guesses left.\r".format(userguess.upper(), guesses_left))
+        print(blank_word)
+
+    if  userguess in word:
+        print(blank_word)
+
+while guesses < 8:
+    userguess = input("Pick a letter, any letter: ")
+    #if userguess in guess_list:
+       # print("You already selected {}, please guess again.".format(userguess.upper())
+    if userguess not in word:
+        guesses += 1
+        guesses = int(guesses)
+        guesses_left = 8 - guesses
+        print("Sorry, {} is not in the word. You have {} guesses left.\r".format(userguess.upper(), guesses_left))
+        print(blank_word)
         continue
-    if user_guess in game_word:
-        correct_guess += 1
-        print("The word contains {}!".format(user_guess))
-        print("You have {} guesses remaining.".format(guesses_left))
-        if correct_guess == len(game_word):
-            print("Congratulations, you win! The word was {}.".format(game_word))
-            break
-        continue
+        #if userguess in word:
+            #if userguess in blank_word:
+                #print("You already guessed {}.".format(userguess))
     else:
-        guess_count += 1
-        guesses_left = 8 - int(guess_count)
-        print("The word does not contain {}. Muahaha.".format(user_guess))
-        if guess_count < 8:
-            print("You have {} guesses remaining.".format(guesses_left))
-            continue
-        if guess_count ==8:
-            print("Sorry, out of guesses :(. Better luck next time.")
+        for x in word:
+            if x == userguess:
+                word = ("").join(word)
+                location_list = list(find_all(word, userguess))
+                for x in location_list:
+                    blank_word.insert(x, userguess)
+                    del blank_word[x + 1]
+                word = list(word)
+        print(blank_word)
+        if "_" not in blank_word:
+            word = ("").join(word)
+            guesses_left = 8 - guesses
+            print("Congratulations! You guessed the word {} with {} guesses left.\r".format(word, guesses_left))
             break
-        
+if guesses == 8:
+    word = ''.join(word)
+    print("Sorry, better luck next time. The word was {}.".format(word))
+
+
+
+    
