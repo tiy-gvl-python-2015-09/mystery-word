@@ -64,11 +64,5 @@ def man_who_hangs_game(infile):
         print(" ".join(empty_spaces_list))
         print("YOU BEAT ME HUMAN!!")
 
-#guess_word = make_computer_guess_word(available_words)
-
-#empty_spaces_list = get_spaces_list(guess_word)
-
-
-
 
 man_who_hangs_game(available_words)
