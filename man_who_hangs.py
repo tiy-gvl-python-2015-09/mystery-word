@@ -61,11 +61,7 @@ def man_who_hangs_game(infile):
             print("My word was {}!".format(guess_word))
             print("I'VE BEATEN YOU HUMAN!!")
             print("MUAHAHAHAHA! I WILL TAKE OVER THE WORLD!")
-            play_again = input("Do you want to play again?\n Y or N\n").lower
-            if play_again == "y":
-                man_who_hangs_game(available_words)
-            else:
-                break
+            break
         print(" ".join(empty_spaces_list))
         print("You have {} guesses left.".format(round_counter))
         user_character_guess = input("What letter is your guess?  \n").lower()
@@ -81,14 +77,6 @@ def man_who_hangs_game(infile):
             for occurance in occurance_index:
                 empty_spaces_list[occurance] = user_character_guess
                 new_empty_spaces_string = " ".join(empty_spaces_list)
-        elif user_character_guess == 'give up':
-            print("The word I was using was {}".format(guess_word))
-            print("YOU LOSE HUMAN!")
-            play_again = input("Do you want to play again?\n Y or N\n").lower()
-            if play_again == "y":
-                return
-            else:
-                break
         else:
             previous_guesses.append(user_character_guess)
             round_counter  -= 1
@@ -96,11 +84,13 @@ def man_who_hangs_game(infile):
     if empty_spaces == 0:
         print(" ".join(empty_spaces_list))
         print("YOU BEAT ME HUMAN!!")
+
+
+start = 1
+while start == 1:
+    man_who_hangs_game(available_words)
     play_again = input("Do you want to play again?\n Y or N\n").lower()
     if play_again == "y":
-        man_who_hangs_game(available_words)
+        start = 1
     else:
-        exit()
-
-
-man_who_hangs_game(available_words)
+        start = 2
