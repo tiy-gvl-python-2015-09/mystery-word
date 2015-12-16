@@ -2,7 +2,7 @@
 
 ## Description
 
-Implement the game of Mystery Word.
+Implement the game of Mystery Word. To play, enter play_hangman(text).
 
 ## Objectives
 
