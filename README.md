@@ -2,7 +2,9 @@
 
 ## Description
 
-Implement the game of Mystery Word.
+This Iron Yard assignment was to build the game Hangman. It uses Mac's English Language Dictionary and runs using Python.
+
+
 
 ## Objectives
 
