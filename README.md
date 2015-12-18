@@ -2,7 +2,7 @@
 
 ## Description
 
-This Iron Yard assignment was to build the game Hangman. It uses Mac's English Language Dictionary (4-10 letter words) and runs using Python.
+This Iron Yard assignment was to build the game Hangman. It uses Mac's English Language Dictionary (4-10 letter words, excluding those that start with a capital letter) and runs using Python.
 
 
 
